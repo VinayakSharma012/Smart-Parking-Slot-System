@@ -1,0 +1,33 @@
+# Build directories
+out/
+*.class
+*.jar
+target/
+build/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven
+.classpath
+.project
+.settings/
+
+# Gradle
+.gradle/
+
+# Compiled files
+*.o
+*.so
+
+# Log files
+*.log
