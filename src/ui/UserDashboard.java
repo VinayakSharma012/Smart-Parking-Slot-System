@@ -4,6 +4,8 @@ import utils.Session;
 import model.User;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class UserDashboard extends JFrame {
@@ -17,10 +19,22 @@ public class UserDashboard extends JFrame {
         add(heading, BorderLayout.NORTH);
 
         JTabbedPane tabs = new JTabbedPane();
-        tabs.addTab("Available Slots", new ParkingSlotPanel());
+        ParkingSlotPanel slotPanel = new ParkingSlotPanel();
+        tabs.addTab("Available Slots", slotPanel);
         tabs.addTab("Book Slot", new BookingPanel());
         tabs.addTab("My Bookings", new BookingHistoryPanel());
         tabs.addTab("Payment", new PaymentPanel());
+        
+        // Refresh parking slots when the "Available Slots" tab is selected
+        tabs.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (tabs.getSelectedIndex() == 0) {  // "Available Slots" tab is index 0
+                    slotPanel.refreshSlots();
+                }
+            }
+        });
+        
         add(tabs, BorderLayout.CENTER);
 
         JButton logout = new JButton("Logout");

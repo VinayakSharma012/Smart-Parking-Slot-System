@@ -69,6 +69,11 @@ public class ParkingSlotPanel extends JPanel {
         }
     }
 
+    // Public method to refresh slots (called when tab is selected)
+    public void refreshSlots() {
+        loadSlots();
+    }
+
     // renderer colors rows
     private static class SlotRowRenderer extends DefaultTableCellRenderer {
         @Override

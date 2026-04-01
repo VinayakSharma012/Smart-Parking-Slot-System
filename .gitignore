@@ -1,9 +1,12 @@
 # Build directories
 out/
 *.class
-*.jar
 target/
 build/
+
+# Keep project JARs (SmartParking.jar and JDBC driver)
+!SmartParking.jar
+!mysql-connector-java-8.0.33.jar
 
 # IDE files
 .idea/
