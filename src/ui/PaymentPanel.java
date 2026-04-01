@@ -2,10 +2,8 @@ package ui;
 
 import dao.BookingDAO;
 import dao.PaymentDAO;
-import dao.ParkingSlotDAO;
 import model.Booking;
 import model.Payment;
-import model.ParkingSlot;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +15,6 @@ public class PaymentPanel extends JPanel {
     private JComboBox<String> methodCombo;
     private BookingDAO bookingDAO = new BookingDAO();
     private PaymentDAO paymentDAO = new PaymentDAO();
-    private ParkingSlotDAO slotDAO = new ParkingSlotDAO();
 
     public PaymentPanel() {
         setLayout(new BorderLayout());
@@ -94,9 +91,10 @@ public class PaymentPanel extends JPanel {
         try {
             boolean ok1 = bookingDAO.updateExitTime(id);
             boolean ok2 = paymentDAO.updatePayment(id, amount, "Paid");
-            boolean ok3 = slotDAO.updateSlotStatus(currentBooking.getSlotId(), "Free");
-            if (ok1 && ok2 && ok3) {
-                JOptionPane.showMessageDialog(this, "Paid successfully. Receipt:\nBooking: " + id + "\nAmount: ₹"+amount);
+            // NOTE: Slot should remain "Occupied" after payment - user is still parked
+            // Slot becomes "Free" only when user physically exits the parking lot
+            if (ok1 && ok2) {
+                JOptionPane.showMessageDialog(this, "Paid successfully. Receipt:\nBooking: " + id + "\nAmount: ₹"+amount + "\n\nSlot remains reserved until you exit.");
                 fetchBooking();
             } else {
                 JOptionPane.showMessageDialog(this, "Payment failed");
