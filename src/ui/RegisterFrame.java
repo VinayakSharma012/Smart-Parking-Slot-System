@@ -95,6 +95,10 @@ public class RegisterFrame extends JFrame {
             boolean ok = dao.registerUser(u);
             if (ok) {
                 JOptionPane.showMessageDialog(this, "Registration successful - please login");
+                // Open LoginFrame before closing RegisterFrame
+                SwingUtilities.invokeLater(() -> {
+                    new LoginFrame().setVisible(true);
+                });
                 dispose();
             }
         } finally {
